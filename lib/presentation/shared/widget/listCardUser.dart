@@ -68,7 +68,7 @@ class ListCardUser extends StatelessWidget {
                       InkWell(
                         child: Text(
                           'VER PUBLICACIONES',
-                          style: TextStyles.title2Style(),
+                          style: TextStyles.title2Style(color: Colors.green),
                           textAlign: TextAlign.end,
                         ),
                         onTap: () => _homeViewModel.homeService.postsUser(user),
