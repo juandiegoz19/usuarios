@@ -1,28 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-final primaryGray = Colors.green;
+const primaryGray = Colors.green;
 final principalColor = Colors.green.shade400;
 
 class DefaultTheme {
   final theme = ThemeData.light().copyWith(
-      visualDensity: VisualDensity.adaptivePlatformDensity,
       colorScheme: ColorScheme(
           primary: principalColor,
-          background: Colors.red,
+          background: principalColor,
           onPrimary: principalColor,
           secondary: primaryGray,
-          surface: Colors.red,
+          surface: Colors.white,
           error: Colors.red,
           onSecondary: Colors.white,
           brightness: Brightness.light,
           onError: Colors.red,
           onSurface: primaryGray,
-          onBackground: Colors.red),
+          onBackground: primaryGray),
       scaffoldBackgroundColor: Colors.grey.shade100,
+      backgroundColor: principalColor,
       appBarTheme: const AppBarTheme(
-        color: Colors.green,
+        color: primaryGray,
+        elevation: 5,
+        shadowColor: Colors.white,
+        titleTextStyle: TextStyle(color: Colors.white, fontSize: 20),
+        centerTitle: false,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      iconTheme: IconThemeData(
-        color: Colors.green.shade900,
-      ));
+      indicatorColor: Colors.white,
+      textTheme: TextTheme(
+          headline5: TextStyle(
+        color: Colors.white,
+        fontSize: Get.textScaleFactor * 23,
+      )));
 }

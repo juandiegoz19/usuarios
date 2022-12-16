@@ -10,6 +10,9 @@ import 'package:usuarios/infrestructure/local/sqlite/base_sqlite_service.dart';
 class SqliteService extends BaseSqliteService {
   String dbName = 'DataBase.db';
 
+  /*
+  Obtiene la ruta de almacenamiento para guarda la BD
+  */
   @override
   Future<String> getPathDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
@@ -17,6 +20,9 @@ class SqliteService extends BaseSqliteService {
     return '$dirStringPath/$dbName';
   }
 
+  /*
+  Crea la bd
+  */
   @override
   Future createDB() async {
     String path = await getPathDatabase();
@@ -30,10 +36,13 @@ class SqliteService extends BaseSqliteService {
     );
   }
 
+  /*
+  Se ejecutan comando al momento de crear la BD
+  */
   void _createDb(Database db, int newVersion) async {
     await db.transaction((txn) async {
       await txn.execute(
-          'CREATE TABLE [User] ([id] INT, [name] TEXT, [username] TEXT, [email] TEXT, [phone] TEXT, [website] TEXT);');
+          'CREATE TABLE [User] ([id] INT, [nameC] TEXT, [username] TEXT, [email] TEXT, [phone] TEXT, [website] TEXT);');
       await txn.execute(
           'CREATE TABLE [Address] ([userId] INT,[street] TEXT, [suite] TEXT,[city] TEXT,[zipcode] TEXT,[lat] TEXT,[lng] TEXT);');
       await txn.execute(
@@ -43,23 +52,19 @@ class SqliteService extends BaseSqliteService {
     });
   }
 
+  /*
+  Valida ya exista la BD para utilizarla o crearla respectivamente
+  */
   @override
   Future<bool> isDatabase() async {
-    Database? db;
     bool isDatabase = false;
     String path = await getPathDatabase();
-    try {
-      db = await openReadOnlyDatabase(path);
-      isDatabase = true;
-    } catch (error) {
-      print('error*****');
-      print(error);
-    } finally {
-      await db?.close();
-    }
+    isDatabase = await File(path).exists();
     return isDatabase;
   }
 
+  /* Permite abrir la BD para su respectivo uso
+  */
   @override
   Future<Database> openDB() async {
     Directory dir = await getApplicationDocumentsDirectory();
@@ -67,6 +72,9 @@ class SqliteService extends BaseSqliteService {
     return await openDatabase(join(dirStringPath, dbName));
   }
 
+  /*
+  Cierra la BD para evitar dejar procesos abierto 
+  */
   @override
   Future closeDB(Database db) async {
     await db.close();

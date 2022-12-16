@@ -19,4 +19,8 @@ class HomeService {
   Future<List<User>> listSearchUsers(String search) async {
     return await iHomeRepository.listSearchUsers(search);
   }
+
+  void postsUser(User user) {
+    return iHomeRepository.postsUser(user);
+  }
 }

@@ -5,7 +5,7 @@ import 'package:usuarios/domain/home/model/Company.dart';
 import 'package:usuarios/domain/home/model/Geo.dart';
 
 List<User> userFromJson(String str) =>
-    List<User>.from(json.decode(str).map((x) => User.fromJson(x)));
+    List<User>.from(json.decode(str).map((x) => User.fromJson(x, false)));
 
 String userToJson(List<User> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
@@ -40,23 +40,27 @@ class User {
   String? website;
   Company? company;
 
-  factory User.fromJson(Map<dynamic, dynamic> json) => User(
+  factory User.fromJson(Map<dynamic, dynamic> json, bool bdUsed) => User(
         id: json["id"],
         name: json["name"],
-        username: json["username"],
+        username: bdUsed ? json["username"] : json["username"],
         email: json["email"],
-        address: Address(
-            city: json['city'],
-            street: json['street'],
-            suite: json['suite'],
-            zipcode: json['zipcode'],
-            geo: Geo(lat: json['lat'], lng: json['lng'])),
+        address: bdUsed
+            ? Address(
+                city: json['city'],
+                street: json['street'],
+                suite: json['suite'],
+                zipcode: json['zipcode'],
+                geo: Geo(lat: json['lat'], lng: json['lng']))
+            : Address.fromJson(json["address"]),
         phone: json["phone"],
         website: json["website"],
-        company: Company(
-            bs: json['bs'],
-            catchPhrase: json['catchPhrase'],
-            name: json['nameCompany']),
+        company: bdUsed
+            ? Company(
+                bs: json['bs'],
+                catchPhrase: json['catchPhrase'],
+                name: json['nameCompany'])
+            : Company.fromJson(json["company"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -72,7 +76,7 @@ class User {
 
   Map<String, dynamic> toJsonInsert() => {
         "id": id,
-        "name": name,
+        "nameC": name,
         "username": username,
         "email": email,
         "phone": phone,

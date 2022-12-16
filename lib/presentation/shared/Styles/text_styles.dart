@@ -79,37 +79,7 @@ class TextStyles {
       color: color,
       fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       fontFamily: 'OpenSans',
-      fontSize: Get.textScaleFactor * 12,
-    );
-  }
-
-  static TextStyle caption2Style(
-      {Color color = Colors.black, bool isBold = false}) {
-    return TextStyle(
-      color: color,
-      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-      fontFamily: 'OpenSans',
-      fontSize: Get.textScaleFactor * 11,
-    );
-  }
-
-  static TextStyle caption3Style(
-      {Color color = Colors.black, bool isBold = false}) {
-    return TextStyle(
-      color: color,
-      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-      fontFamily: 'OpenSans',
-      fontSize: Get.textScaleFactor * 10,
-    );
-  }
-
-  static TextStyle bodyStyle(
-      {Color color = Colors.black, bool isBold = false}) {
-    return TextStyle(
-      color: color,
-      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-      fontFamily: 'OpenSans',
-      fontSize: Get.textScaleFactor * 18,
+      fontSize: Get.textScaleFactor * 13.5,
     );
   }
 }
